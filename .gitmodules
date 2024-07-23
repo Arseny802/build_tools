@@ -1,3 +1,0 @@
-[submodule "dependency_manager/conan"]
-	path = dependency_manager/conan
-	url = https://github.com/conan-io/cmake-conan

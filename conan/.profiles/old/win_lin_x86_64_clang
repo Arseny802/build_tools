@@ -1,0 +1,17 @@
+[settings]
+os=Linux
+os.api_level=27
+arch=x86_64
+arch_build=x86_64
+build_type=Release
+cppstd=17
+compiler.cppstd=17
+compiler=clang
+compiler.version=X.Y
+compiler.libcxx=libstdc++11
+cc=C:\cygwin64\bin\clang
+cxx=C:\cygwin64\bin\clang++
+# sysroot=/path/to/sysroot
+[options]
+[build_requires]
+[env]
