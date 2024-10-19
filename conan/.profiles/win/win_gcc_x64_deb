@@ -1,6 +1,6 @@
 [settings]
 os=Windows
-os.Windows.subsystem=msys2
+os.subsystem=msys2
 arch=x86_64
 build_type=Debug
 compiler=gcc
@@ -13,6 +13,7 @@ compiler.exception=seh
 
 
 [conf]
+tools.cmake.cmake_layout:build_folder_vars = ['settings.os', 'settings.arch', 'settings.compiler']
 tools.microsoft.bash:path=C:/msys64/usr/bin/bash.exe
 tools.microsoft.bash:subsystem=msys2
 tools.env.virtualenv:powershell=False

@@ -1,6 +1,6 @@
 [settings]
 os=Windows
-os.Windows.subsystem=msys2
+os.subsystem=msys2
 arch=x86
 build_type=Debug
 compiler=gcc
@@ -13,7 +13,11 @@ compiler.exception=seh
 
 
 [conf]
-tools.build:compiler_executables={'c': 'C:/msys64/mingw32/bin/gcc.exe', 'cpp': 'C:/msys64/mingw32/bin/gcc.exe' }
+tools.cmake.cmake_layout:build_folder_vars = ['settings.os', 'settings.arch', 'settings.compiler']
+tools.build:compiler_executables={'c': 'C:/msys64/mingw32/bin/gcc.exe', 'cpp': 'C:/msys64/mingw32/bin/g++.exe' }
 tools.microsoft.bash:path=C:/msys64/usr/bin/bash.exe
 tools.microsoft.bash:subsystem=msys2
 tools.env.virtualenv:powershell=False
+
+[options]
+libxml2/2.12.7:ftp=False

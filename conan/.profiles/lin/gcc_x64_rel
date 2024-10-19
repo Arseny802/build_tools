@@ -1,0 +1,13 @@
+[settings]
+os=Linux
+arch=x86_64
+build_type=Release
+compiler=gcc
+compiler.cppstd=20
+compiler.version=14.1
+compiler.libcxx=libstdc++11
+compiler.threads=posix
+compiler.exception=seh
+
+[options]
+libxml2/2.12.7:ftp=False

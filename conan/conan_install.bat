@@ -70,7 +70,7 @@ rem ###########################
 
 echo|set /p="Running conan install for profile release_win_msvc_x86_st... "
 conan install %project_path% --output-folder="%project_path%/cmake_build/release_win_msvc_x86_st" --build=missing ^
-  -pr:h %conan_dir%\.profiles\win\win_msvc_x86_rel_st -pr:b %conan_dir%\.profiles\win\win_msvc_x86_rel_st ^
+  -pr:h %conan_dir%\.profiles\win\win_msvc_x86_rel_st -pr:b %conan_dir%\.profiles\win\win_msvc_x86_rel_st --name=win_msvc_x86_rel_st ^
   1>%logs_path%\release_win_msvc_x86_st.log 2>%logs_path%\release_win_msvc_x86_st_err.log
 if %errorlevel% EQU 0 (
   echo OK
@@ -81,7 +81,7 @@ rem echo #######################################################################
 
 echo|set /p="Running conan install for profile release_win_msvc_x64_st... "
 conan install %project_path% --output-folder="%project_path%/cmake_build/release_win_msvc_x64_st" --build=missing ^
-  -pr:h %conan_dir%\.profiles\win\win_msvc_x64_rel_st -pr:b %conan_dir%\.profiles\win\win_msvc_x64_rel_st ^
+  -pr:h %conan_dir%\.profiles\win\win_msvc_x64_rel_st -pr:b %conan_dir%\.profiles\win\win_msvc_x64_rel_st --name=win_msvc_x64_rel_st ^
   1>%logs_path%\release_win_msvc_x64_st.log 2>%logs_path%\release_win_msvc_x64_st_err.log
 if %errorlevel% EQU 0 (
   echo OK
@@ -92,7 +92,7 @@ rem echo #######################################################################
 
 echo|set /p="Running conan install for profile release_win_msvc_x64_dyn... "
 conan install %project_path% --output-folder="%project_path%/cmake_build/release_win_msvc_x64_dyn" --build=missing ^
-  -pr:h %conan_dir%\.profiles\win\win_msvc_x64_rel_dyn -pr:b %conan_dir%\.profiles\win\win_msvc_x64_rel_dyn ^
+  -pr:h %conan_dir%\.profiles\win\win_msvc_x64_rel_dyn -pr:b %conan_dir%\.profiles\win\win_msvc_x64_rel_dyn --name=win_msvc_x64_rel_dyn ^
   1>%logs_path%\release_win_msvc_x64_dyn.log 2>%logs_path%\release_win_msvc_x64_dyn_err.log
 if %errorlevel% EQU 0 (
   echo OK
@@ -103,7 +103,7 @@ rem echo #######################################################################
 
 echo|set /p="Running conan install for profile debug_win_msvc_x64_st... "
 conan install %project_path% --output-folder="%project_path%/cmake_build/debug_win_msvc_x64_st" --build=missing ^
-  -pr:h %conan_dir%\.profiles\win\win_msvc_x64_deb_st -pr:b %conan_dir%\.profiles\win\win_msvc_x64_deb_st ^
+  -pr:h %conan_dir%\.profiles\win\win_msvc_x64_deb_st -pr:b %conan_dir%\.profiles\win\win_msvc_x64_deb_st --name=win_msvc_x64_deb_st ^
   1>%logs_path%\debug_win_msvc_x64_st.log 2>%logs_path%\debug_win_msvc_x64_st_err.log
 if %errorlevel% EQU 0 (
   echo OK
@@ -114,7 +114,7 @@ rem echo #######################################################################
 
 echo|set /p="Running conan install for profile debug_win_msvc_x64_dyn... "
 conan install %project_path% --output-folder="%project_path%/cmake_build/debug_win_msvc_x64_dyn" --build=missing ^
-  -pr:h %conan_dir%\.profiles\win\win_msvc_x64_deb_dyn -pr:b %conan_dir%\.profiles\win\win_msvc_x64_deb_dyn ^
+  -pr:h %conan_dir%\.profiles\win\win_msvc_x64_deb_dyn -pr:b %conan_dir%\.profiles\win\win_msvc_x64_deb_dyn --name=win_msvc_x64_deb_dyn ^
   1>%logs_path%\debug_win_msvc_x64_dyn.log 2>%logs_path%\debug_win_msvc_x64_dyn_err.log
 if %errorlevel% EQU 0 (
   echo OK
@@ -127,7 +127,7 @@ rem echo #######################################################################
 
 echo|set /p="Running conan install for profile debug_win_gcc_x64... "
 conan install %project_path% --output-folder="%project_path%/cmake_build/debug_win_gcc_x64" --build=missing ^
-  -pr:h %conan_dir%\.profiles\win\win_gcc_x64_deb -pr:b %conan_dir%\.profiles\win\win_gcc_x64_deb ^
+  -pr:a %conan_dir%\.profiles\win\win_gcc_x64_deb --name=debug_win_gcc_x64 ^
   1>%logs_path%\debug_win_gcc_x64.log 2>%logs_path%\debug_win_gcc_x64_err.log
 if %errorlevel% EQU 0 (
   echo OK
@@ -138,7 +138,7 @@ rem echo #######################################################################
 
 echo|set /p="Running conan install for profile release_win_gcc_x64... "
 conan install %project_path% --output-folder="%project_path%/cmake_build/release_win_gcc_x64" --build=missing ^
-  -pr:h %conan_dir%\.profiles\win\win_gcc_x64_rel -pr:b %conan_dir%\.profiles\win\win_gcc_x64_rel ^
+  -pr:h %conan_dir%\.profiles\win\win_gcc_x64_rel -pr:b %conan_dir%\.profiles\win\win_gcc_x64_rel --name=release_win_gcc_x64 ^
   1>%logs_path%\release_win_gcc_x64.log 2>%logs_path%\release_win_gcc_x64_err.log
 if %errorlevel% EQU 0 (
   echo OK
@@ -155,7 +155,7 @@ set CXX=C:/msys64/mingw32/bin/g++.exe
 rem Using win_to_win_gcc_x64_deb instead of win_to_win_gcc_x64_deb because of -Werror in conan build. External project may fail.
 echo|set /p="Running conan install for profile debug_win_gcc_x86... "
 conan install %project_path% --output-folder="%project_path%/cmake_build/debug_win_gcc_x86" --build=missing  ^
-  -pr:h %conan_dir%\.profiles\win\win_gcc_x86_deb -pr:b %conan_dir%\.profiles\win\win_gcc_x86_deb ^
+  -pr:h %conan_dir%\.profiles\win\win_gcc_x86_deb -pr:b %conan_dir%\.profiles\win\win_gcc_x86_deb --name=debug_win_gcc_x86 ^
   1>%logs_path%\debug_win_gcc_x86.log 2>%logs_path%\debug_win_gcc_x86_err.log
 if %errorlevel% EQU 0 (
   echo OK
@@ -166,7 +166,7 @@ rem echo #######################################################################
 
 echo|set /p="Running conan install for profile release_win_gcc_x86... "
 conan install %project_path% --output-folder="%project_path%/cmake_build/release_win_gcc_x86" --build=missing  ^
-  -pr:h %conan_dir%\.profiles\win\win_gcc_x86_rel -pr:b %conan_dir%\.profiles\win\win_gcc_x86_rel ^
+  -pr:h %conan_dir%\.profiles\win\win_gcc_x86_rel -pr:b %conan_dir%\.profiles\win\win_gcc_x86_rel --name=release_win_gcc_x86^
   1>%logs_path%\release_win_gcc_x86.log 2>%logs_path%\release_win_gcc_x86_err.log
 if %errorlevel% EQU 0 (
   echo OK

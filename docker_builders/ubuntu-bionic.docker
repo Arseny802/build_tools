@@ -1,0 +1,20 @@
+FROM ubuntu:bionic
+ARG repo_url
+ARG repo_url
+
+
+RUN apt-get update \
+ && apt-get install -y apt-utils 
+
+RUN  apt-get update \
+  && apt-get install -y make cmake gcc g++ git python
+  
+RUN mkdir -p /app/src
+
+WORKDIR /app/build
+
+# Установим точку входа 
+ENTRYPOINT git -C /app/src clone https://github.com/sqglobe/SimpleQtProject.git \
+               && qmake  /app/src/SimpleQtProject/SimpleQtProject.pro \
+               && make \
+               && cp SimpleQtProject  /app/res/SimpleQtProject-ubuntu-bionic

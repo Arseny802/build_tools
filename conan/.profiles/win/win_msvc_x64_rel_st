@@ -7,3 +7,6 @@ compiler.cppstd=17
 compiler.version=193
 compiler.runtime=static
 tools.microsoft.msbuild:vs_version=17
+
+[conf]
+tools.cmake.cmake_layout:build_folder_vars = ['settings.os', 'settings.arch', 'settings.compiler', 'settings.compiler.runtime', 'settings.build_type']

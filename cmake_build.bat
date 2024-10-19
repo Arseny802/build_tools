@@ -48,7 +48,8 @@ if not exist %project_path%\cmake_build\debug_win_msvc_x64_dyn (
   echo|set /p="Running build for profile debug_win_msvc_x64_dyn... "
   %cmake_exe% --build .  --config Debug --parallel 24 ^
     1>..\.logs\build\debug_win_msvc_x64_dyn.log 2>..\.logs\build\debug_win_msvc_x64_dyn_err.log
-  if %errorlevel% EQU 0 (
+  SET BUILD_ERRORLEVEL=!ERRORLEVEL!
+  if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
     echo FAIL, code: %errorlevel%
@@ -64,7 +65,8 @@ if not exist %project_path%\cmake_build\debug_win_msvc_x64_st (
   echo|set /p="Running build for profile debug_win_msvc_x64_st... "
   %cmake_exe% --build .  --config Debug --parallel 24 ^
     1>..\.logs\build\debug_win_msvc_x64_st.log 2>..\.logs\build\debug_win_msvc_x64_st_err.log
-  if %errorlevel% EQU 0 (
+  SET BUILD_ERRORLEVEL=!ERRORLEVEL!
+  if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
     echo FAIL, code: %errorlevel%
@@ -80,7 +82,8 @@ if not exist %project_path%\cmake_build\release_win_msvc_x64_dyn (
   echo|set /p="Running build for profile release_win_msvc_x64_dyn... "
   %cmake_exe% --build .  --config Release --parallel 24 ^
     1>..\.logs\build\release_win_msvc_x64_dyn.log 2>..\.logs\build\release_win_msvc_x64_dyn_err.log
-  if %errorlevel% EQU 0 (
+  SET BUILD_ERRORLEVEL=!ERRORLEVEL!
+  if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
     echo FAIL, code: %errorlevel%
@@ -96,7 +99,8 @@ if not exist %project_path%\cmake_build\release_win_msvc_x64_st (
   echo|set /p="Running build for profile release_win_msvc_x64_st... "
   %cmake_exe% --build .  --config Release --parallel 24 ^
     1>..\.logs\build\release_win_msvc_x64_st.log 2>..\.logs\build\release_win_msvc_x64_st_err.log
-  if %errorlevel% EQU 0 (
+  SET BUILD_ERRORLEVEL=!ERRORLEVEL!
+  if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
     echo FAIL, code: %errorlevel%
@@ -112,7 +116,8 @@ if not exist %project_path%\cmake_build\release_win_msvc_x86_st (
   echo|set /p="Running build for profile release_win_msvc_x86_st... "
   %cmake_exe% --build .  --config Release --parallel 24 ^
     1>..\.logs\build\release_win_msvc_x86_st.log 2>..\.logs\build\release_win_msvc_x86_st_err.log
-  if %errorlevel% EQU 0 (
+  SET BUILD_ERRORLEVEL=!ERRORLEVEL!
+  if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
     echo FAIL, code: %errorlevel%
@@ -132,7 +137,8 @@ if not exist %project_path%\cmake_build\debug_win_gcc_x64 (
   echo|set /p="Running build for profile debug_win_gcc_x64... "
   %cmake_exe% --build .  --config Debug --parallel 24 ^
     1>..\.logs\build\debug_win_gcc_x64.log 2>..\.logs\build\debug_win_gcc_x64_err.log
-  if %errorlevel% EQU 0 (
+  SET BUILD_ERRORLEVEL=!ERRORLEVEL!
+  if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
     echo FAIL, code: %errorlevel%
@@ -149,7 +155,8 @@ if not exist %project_path%\cmake_build\release_win_gcc_x64 (
   echo|set /p="Running build for profile release_win_gcc_x64... "
   %cmake_exe% --build .  --config Release --parallel 24 ^
     1>..\.logs\build\release_win_gcc_x64.log 2>..\.logs\build\release_win_gcc_x64_err.log
-  if %errorlevel% EQU 0 (
+  SET BUILD_ERRORLEVEL=!ERRORLEVEL!
+  if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
     echo FAIL, code: %errorlevel%
@@ -170,7 +177,8 @@ if not exist %project_path%\cmake_build\debug_win_gcc_x86 (
   echo|set /p="Running build for profile debug_win_gcc_x86... "
   %cmake_exe% --build .  --config Release --parallel 24 ^
     1>..\.logs\build\debug_win_gcc_x86.log 2>..\.logs\build\debug_win_gcc_x86_err.log
-  if %errorlevel% EQU 0 (
+  SET BUILD_ERRORLEVEL=!ERRORLEVEL!
+  if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
     echo FAIL, code: %errorlevel%
@@ -187,7 +195,8 @@ if not exist %project_path%\cmake_build\release_win_gcc_x86 (
   echo|set /p="Running build for profile release_win_gcc_x86... "
   %cmake_exe% --build .  --config Release --parallel 24 ^
     1>..\.logs\build\release_win_gcc_x86.log 2>..\.logs\build\release_win_gcc_x86_err.log
-  if %errorlevel% EQU 0 (
+  SET BUILD_ERRORLEVEL=!ERRORLEVEL!
+  if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
     echo FAIL, code: %errorlevel%

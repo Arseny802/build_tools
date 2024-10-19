@@ -1,6 +1,6 @@
 [settings]
 os=Windows
-os.Windows.subsystem=msys2
+os.subsystem=msys2
 arch=x86
 build_type=Release
 compiler=msvc
@@ -9,6 +9,7 @@ compiler.version=193
 compiler.runtime=static
 
 [conf]
+tools.cmake.cmake_layout:build_folder_vars = ['settings.os', 'settings.arch', 'settings.compiler', 'settings.compiler.runtime', 'settings.build_type']
 tools.microsoft.msbuild:vs_version=17
 tools.microsoft.bash:path=C:/msys64/usr/bin/bash.exe
 tools.microsoft.bash:subsystem=msys2
