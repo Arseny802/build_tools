@@ -60,7 +60,7 @@ function GenerateFolders() {
 function cmake_build_profile() {
   profile=$1
 
-	printf "Running cmake load for profile $profile... "
+	printf "Running cmake build for profile $profile... "
 	if [ ! -d "$project_path/cmake_build/$profile" ]; then
 	  echo Error: $project_path/cmake_build/$profile directory not exists!
     return [n]
