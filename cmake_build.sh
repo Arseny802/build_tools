@@ -1,8 +1,8 @@
 #!/bin/bash
 
-conan_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+build_tools_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 project_path=$1
-logs_path=$project_path/cmake_build/.logs/conan
+logs_path=$project_path/cmake_build/.logs/build
 
 # Generate folders for build configurations and binaries
 # This function will create the following folders under $project_path:
@@ -32,7 +32,7 @@ function GenerateFolders() {
 		mkdir $logs_path
 	fi
 
-	for entry in "$conan_dir"/.profiles/lin/*; do
+	for entry in "$build_tools_dir"/conan/.profiles/lin/*; do
 		configuration_name=$(basename ${entry})
 		if [ ! -d "$project_path/cmake_build/$configuration_name" ]; then
 			mkdir $project_path/cmake_build/$configuration_name
@@ -43,34 +43,45 @@ function GenerateFolders() {
 	done
 }
 
-
-# Installs the conan dependencies for a given profile.
+# Runs cmake build for a given profile.
 #
-# This function takes the following argument:
-# - profile: the name of the build configuration profile.
+# It assumes that $project_path/cmake_build/$profile directory exists and
+# contains CMakeCache.txt file.
 #
-# The function runs `conan install` with the specified profile for both
-# host and build contexts, storing the output in the corresponding 
-# cmake_build directory. It logs the standard output and error to separate
-# files in the logs directory. If the command succeeds, it prints "OK".
-# If it fails, it prints "FAIL" along with the return code.
-function ConanInstallProfile() {
-	profile=$1
-	printf "Running conan install for profile $profile... "
-	conan install $project_path --output-folder="$project_path/cmake_build/$profile" --build=missing \
-  	-pr:h $conan_dir/.profiles/lin/$profile -pr:b $conan_dir/.profiles/lin/$profile --name=$profile \
-  	1>$logs_path/${profile}_1.log 2>$logs_path/${profile}_2.log
+# The function runs cmake with the following options:
+# - --build .
+# - --config Debug
+# - --parallel 24
+#
+# Output is redirected to $logs_path/$profile_1.log and
+# $logs_path/$profile_2.log.
+#
+# It returns 0 if build is successful, and non-zero otherwise.
+function cmake_build_profile() {
+  profile=$1
 
+	printf "Running cmake load for profile $profile... "
+	if [ ! -d "$project_path/cmake_build/$profile" ]; then
+	  echo Error: $project_path/cmake_build/$profile directory not exists!
+    return [n]
+	fi
+  cd $project_path/cmake_build/$profile
+
+  cmake --build .  --config Debug --parallel 24 \
+    1>$logs_path/${profile}_1.log 2>$logs_path/${profile}_2.log
   return_code=$?
 	if [[ $return_code -eq 0 ]]; then
   	echo OK
 	else
   	echo FAIL, code: $return_code
 	fi
+
+  cd ../..
 }
 
 GenerateFolders
-for entry in "$conan_dir"/.profiles/lin/*; do
+for entry in "$build_tools_dir"/conan/.profiles/lin/*; do
 	configuration_name=$(basename ${entry})
-  ConanInstallProfile $configuration_name
+  cmake_build_profile $configuration_name
 done
+

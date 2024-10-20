@@ -52,7 +52,7 @@ if not exist %project_path%\cmake_build\release_win_msvc_x64_dyn mkdir %project_
 if not exist %project_path%\cmake_build\debug_win_msvc_x64_st mkdir %project_path%\cmake_build\debug_win_msvc_x64_st
 if not exist %project_path%\cmake_build\debug_win_msvc_x64_dyn mkdir %project_path%\cmake_build\debug_win_msvc_x64_dyn
 
-if not exist %project_path%\cmake_build\debug_win_gcc_x64 mkdir %project_path%\cmake_build\debug_win_gcc_x64
+if not exist %project_path%\cmake_build\debug_win_gcc_x64 mkdir %projectdebug_win_gcc_x64_path%\cmake_build\debug_win_gcc_x64
 if not exist %project_path%\cmake_build\debug_win_gcc_x86 mkdir %project_path%\cmake_build\debug_win_gcc_x86
 if not exist %project_path%\cmake_build\release_win_gcc_x64 mkdir %project_path%\cmake_build\release_win_gcc_x64
 if not exist %project_path%\cmake_build\release_win_gcc_x86 mkdir %project_path%\cmake_build\release_win_gcc_x86

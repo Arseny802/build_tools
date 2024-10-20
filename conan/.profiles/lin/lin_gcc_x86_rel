@@ -1,7 +1,7 @@
 [settings]
 os=Linux
 arch=x86
-build_type=Debug
+build_type=Release
 compiler=gcc
 compiler.cppstd=20
 compiler.version=14.1
@@ -11,3 +11,6 @@ compiler.exception=seh
 
 [options]
 libxml2/2.12.7:ftp=False
+
+[conf]
+tools.cmake.cmake_layout:build_folder_vars = ['settings.os', 'settings.arch', 'settings.compiler', 'settings.compiler.runtime', 'settings.build_type']
