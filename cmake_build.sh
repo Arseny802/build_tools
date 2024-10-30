@@ -65,9 +65,8 @@ function cmake_build_profile() {
 	  echo Error: $project_path/cmake_build/$profile directory not exists!
     return [n]
 	fi
-  cd $project_path/cmake_build/$profile
 
-  cmake --build .  --config Debug --parallel 24 \
+  cmake --build $project_path/cmake_build/$profile  --config Debug --parallel 24 \
     1>$logs_path/${profile}_1.log 2>$logs_path/${profile}_2.log
   return_code=$?
 	if [[ $return_code -eq 0 ]]; then
@@ -75,8 +74,6 @@ function cmake_build_profile() {
 	else
   	echo FAIL, code: $return_code
 	fi
-
-  cd ../..
 }
 
 GenerateFolders
