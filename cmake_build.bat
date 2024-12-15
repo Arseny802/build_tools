@@ -52,7 +52,7 @@ if not exist %project_path%\cmake_build\debug_win_msvc_x64_dyn (
   if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
-    echo FAIL, code: %errorlevel%
+    echo FAIL, code: %BUILD_ERRORLEVEL%
   )
   cd ..\..
 )
@@ -69,7 +69,7 @@ if not exist %project_path%\cmake_build\debug_win_msvc_x64_st (
   if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
-    echo FAIL, code: %errorlevel%
+    echo FAIL, code: %BUILD_ERRORLEVEL%
   )
   cd ..\..
 )
@@ -86,7 +86,7 @@ if not exist %project_path%\cmake_build\release_win_msvc_x64_dyn (
   if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
-    echo FAIL, code: %errorlevel%
+    echo FAIL, code: %BUILD_ERRORLEVEL%
   )
   cd ..\..
 )
@@ -103,7 +103,7 @@ if not exist %project_path%\cmake_build\release_win_msvc_x64_st (
   if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
-    echo FAIL, code: %errorlevel%
+    echo FAIL, code: %BUILD_ERRORLEVEL%
   )
   cd ..\..
 )
@@ -120,7 +120,7 @@ if not exist %project_path%\cmake_build\release_win_msvc_x86_st (
   if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
-    echo FAIL, code: %errorlevel%
+    echo FAIL, code: %BUILD_ERRORLEVEL%
   )
   cd ..\..
 )
@@ -141,7 +141,7 @@ if not exist %project_path%\cmake_build\debug_win_gcc_x64 (
   if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
-    echo FAIL, code: %errorlevel%
+    echo FAIL, code: %BUILD_ERRORLEVEL%
   )
   cd ..\..
 )
@@ -159,7 +159,7 @@ if not exist %project_path%\cmake_build\release_win_gcc_x64 (
   if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
-    echo FAIL, code: %errorlevel%
+    echo FAIL, code: %BUILD_ERRORLEVEL%
   )
   cd ..\..
 )
@@ -181,7 +181,7 @@ if not exist %project_path%\cmake_build\debug_win_gcc_x86 (
   if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
-    echo FAIL, code: %errorlevel%
+    echo FAIL, code: %BUILD_ERRORLEVEL%
   )
   cd ..\..
 )
@@ -199,7 +199,7 @@ if not exist %project_path%\cmake_build\release_win_gcc_x86 (
   if "!BUILD_ERRORLEVEL!"=="0" (
     echo OK
   ) else (
-    echo FAIL, code: %errorlevel%
+    echo FAIL, code: %BUILD_ERRORLEVEL%
   )
   cd ..\..
 )
