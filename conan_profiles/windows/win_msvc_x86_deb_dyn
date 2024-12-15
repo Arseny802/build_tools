@@ -1,8 +1,8 @@
 [settings]
 os=Windows
 os.subsystem=msys2
-arch=x86_64
-build_type=Release
+arch=x86
+build_type=Debug
 compiler=msvc
 compiler.cstd=17
 compiler.cppstd=20

@@ -18,6 +18,7 @@ tools.build:compiler_executables={'c': 'C:/msys64/mingw64/bin/gcc.exe', 'cpp': '
 tools.microsoft.bash:path=C:/msys64/usr/bin/bash.exe
 tools.microsoft.bash:subsystem=msys2
 tools.env.virtualenv:powershell=False
+tools.build:jobs = 8
 
 [options]
 libxml2/2.12.7:ftp=False

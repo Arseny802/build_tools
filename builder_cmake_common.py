@@ -55,7 +55,7 @@ class BuilderCmakeCommon(BuilderCommon):
     
     current_cmake_directory = os.path.join(self.project_root_path, "cmake_build", profile_name)
     command = f"cmake --install {current_cmake_directory}"
-    command += f" 1>{self.build_logs_folder}/build/{profile_name}.log 2>&1"
+    command += f" 1>{self.build_logs_folder}/install/{profile_name}.log 2>&1"
     
     return self._run_cmd(command, profile_name, "cmake install")
   

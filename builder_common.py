@@ -6,11 +6,15 @@ class BuilderCommon:
     "conan_profiles/windows/win_gcc_x64_rel",
     "conan_profiles/windows/win_gcc_x86_deb",
     "conan_profiles/windows/win_gcc_x86_rel",
+
     "conan_profiles/windows/win_msvc_x64_deb_st",
     "conan_profiles/windows/win_msvc_x64_rel_st",
     "conan_profiles/windows/win_msvc_x64_deb_dyn",
     "conan_profiles/windows/win_msvc_x64_rel_dyn",
+    "conan_profiles/windows/win_msvc_x86_deb_st",
     "conan_profiles/windows/win_msvc_x86_rel_st",
+    "conan_profiles/windows/win_msvc_x86_deb_dyn",
+    "conan_profiles/windows/win_msvc_x86_rel_dyn",
   ]
   profiles_windows_cross = [
     # TODO: Crossbuild linux profiles are missing
@@ -48,6 +52,7 @@ class BuilderCommon:
       self.build_logs_folder + "/conan",
       self.build_logs_folder + "/cmake",
       self.build_logs_folder + "/build",
+      self.build_logs_folder + "/install",
       self.build_logs_folder + "/package",
       self.bin_folder,
       self.bin_folder + "/packages",
@@ -77,7 +82,7 @@ class BuilderCommon:
       print(f"{function_desc} finished succesfully for {success_counter}/{len(list)} profiles.")
       
   def _run_cmd(self, command: str, profile_name: str, cmd_name: str = "operation") -> bool:
-    print(f"Running cmake install for profile {profile_name}... ", end='', flush=True)
+    print(f"Running {cmd_name} for profile {profile_name}... ", end='', flush=True)
     return_code =os.system(command)
     if return_code != 0:
       print(f"FAIL, code: {return_code}")
