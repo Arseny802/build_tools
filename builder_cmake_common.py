@@ -7,6 +7,8 @@ from builder_common import BuilderCommon
 class BuilderCmakeCommon(BuilderCommon):
   
   _GENERATOR_KEY = "cmake_generator"
+  _GENERATOR_KEY_GCC = "cmake_generator_for_gcc"
+  _GENERATOR_KEY_MSVC = "cmake_generator_for_msvc"
 
   def __init__(self, project_root_path: str):
     super().__init__(project_root_path)
@@ -20,9 +22,13 @@ class BuilderCmakeCommon(BuilderCommon):
       bitnes = "64"
     else:
       bitnes = "64"
-      
-    if "msvc" in profile_name:
-      additiona_args[self._GENERATOR_KEY] = "Visual Studio 17 2022"
+    
+    if "gcc" in str.lower(profile_name) and additiona_args.get(self._GENERATOR_KEY_GCC) is not None:
+      cmake_generator = additiona_args[self._GENERATOR_KEY_GCC]
+    elif "msvc" in str.lower(profile_name) and additiona_args.get(self._GENERATOR_KEY_MSVC) is not None:
+      cmake_generator = additiona_args[self._GENERATOR_KEY_MSVC]
+    else:
+      cmake_generator = additiona_args[self._GENERATOR_KEY]
     
     configuration_type = self.__get_configuration_type(profile_name)
     current_cmake_directory = os.path.join(self.cmake_build_folder, profile_name)
@@ -30,7 +36,7 @@ class BuilderCmakeCommon(BuilderCommon):
     
     command = f"cmake {self.project_root_path}"
     command += f" -B \"{current_cmake_directory}\""
-    command += f" -G \"{additiona_args[self._GENERATOR_KEY]}\""
+    command += f" -G \"{cmake_generator}\""
     command += f" -DCMAKE_CONFIGURATION_TYPES={configuration_type}"
     command += f" -DCMAKE_BUILD_TYPE={configuration_type}"
     command += f" -DBUILD_TOOL_TYPE_NAME={profile_name}"

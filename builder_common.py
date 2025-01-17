@@ -40,6 +40,8 @@ class BuilderCommon:
   ]
   profiles_linux_all = profiles_linux + profiles_linux_cross
   profiles_linux_default = [profiles_linux[0]]
+  
+  _BUILD_CROSSCOMPILING = False
 
   def __init__(self, project_root_path: str):
     self.root_path = os.path.dirname(os.path.realpath(__file__))

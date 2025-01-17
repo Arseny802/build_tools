@@ -8,7 +8,9 @@ class BuilderCmakeLinux(BuilderCmakeCommon):
   def __init__(self, project_root_path: str):
     super().__init__(project_root_path)
     self.cmake_load_arguments = {
-      self._GENERATOR_KEY: "Unix Makefiles"
+      self._GENERATOR_KEY: "Unix Makefiles",
+      self._GENERATOR_KEY_MSVC: "Visual Studio 17 2022",
+      self._GENERATOR_KEY_GCC: "Unix Makefiles",
     }
   
   def load(self, use_all_profiles: bool):
