@@ -7,7 +7,7 @@ class BuilderCmakeLinux(BuilderCmakeCommon):
   
   def __init__(self, project_root_path: str):
     super().__init__(project_root_path)
-    cmake_load_arguments = {
+    self.cmake_load_arguments = {
       self._GENERATOR_KEY: "Unix Makefiles"
     }
   
