@@ -11,7 +11,7 @@ class BuilderCmakeCommon(BuilderCommon):
   def __init__(self, project_root_path: str):
     super().__init__(project_root_path)
  
-  def _load(self, profile_path: str, additiona_args: dict|None = None) -> bool:
+  def _load(self, profile_path: str, additiona_args: dict) -> bool:
     profile_name = profile_path.split("/")[-1]
     
     if "x86" in profile_name and ("x64" not in profile_name and "x86_64" not in profile_name):
@@ -36,13 +36,11 @@ class BuilderCmakeCommon(BuilderCommon):
     command += f" -DBUILD_TOOL_TYPE_NAME={profile_name}"
     command += f" -DCMAKE_TOOLCHAIN_FILE={cmake_toolchain_file_path}"
     command += f" -DCMAKE_PROJECT_INCLUDE={self.root_path}/injection_common.cmake"
-    if "gcc" in profile_name:
-      command += " -DCMAKE_C_COMPILER=C:\\msys64\\mingw64\\bin\\gcc.exe -DCMAKE_CXX_COMPILER=C:\\msys64\\mingw64\\bin\\g++.exe"
     command += f" 1>{self.build_logs_folder}/cmake/{profile_name}.log 2>&1"
    
     return self._run_cmd(command, profile_name, "cmake load")
   
-  def _build(self, profile_path: str, additiona_args: dict = None) -> bool:
+  def _build(self, profile_path: str, additiona_args: dict|None = None) -> bool:
     profile_name = profile_path.split("/")[-1]
     
     current_cmake_directory = os.path.join(self.cmake_build_folder, profile_name)
@@ -53,7 +51,7 @@ class BuilderCmakeCommon(BuilderCommon):
     
     return self._run_cmd(command, profile_name, "cmake build")
 
-  def _install(self, profile_path: str, additiona_args: dict = None) -> bool:
+  def _install(self, profile_path: str, additiona_args: dict|None = None) -> bool:
     profile_name = profile_path.split("/")[-1]
     
     current_cmake_directory = os.path.join(self.cmake_build_folder, profile_name)

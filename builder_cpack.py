@@ -42,8 +42,9 @@ class BuilderCpack(BuilderCmakeCommon):
 
   def __init__(self, project_root_path: str):
     super().__init__(project_root_path)
+    self.cmake_files_common_directory = ""
 
-  def install(self, profile_path: str, additiona_args: dict = None) -> bool:
+  def install(self, profile_path: str, additiona_args: dict|None = None) -> bool:
     profile_name = profile_path.split("/")[-1]
     
     current_cmake_directory = os.path.join(self.project_root_path, self.cmake_files_common_directory, profile_name)
@@ -52,7 +53,7 @@ class BuilderCpack(BuilderCmakeCommon):
     
     return self._run_cmd(command, profile_name, "cmake install")
   
-  def pack(self, profile_path: str, additiona_args: dict = None) -> bool:
+  def pack(self, profile_path: str, additiona_args: dict|None = None) -> bool:
     profile_name = profile_path.split("/")[-1]
     
     current_cmake_directory = os.path.join(self.project_root_path, self.cmake_files_common_directory, profile_name)

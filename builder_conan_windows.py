@@ -16,10 +16,6 @@ class BuilderConanWindows(BuilderConanCommon):
     
     if not use_all_profiles:
       return
-    
-    def install_cross_profile(self, profile_target_path: str):
-      profile_target_name: str = profile_target_path.split("/")[-1]
-      self.__install_cross_profile(profile_target_name.replace("lin", "win"), profile_target_path) 
       
     self._do_for_all(self.__install_cross_profile, self.profiles_windows_cross, {}, "Conan install crossprofile")
     
