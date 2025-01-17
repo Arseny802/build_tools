@@ -11,7 +11,7 @@ class BuilderCmakeCommon(BuilderCommon):
   def __init__(self, project_root_path: str):
     super().__init__(project_root_path)
  
-  def _load(self, profile_path: str, additiona_args: dict = None) -> bool:
+  def _load(self, profile_path: str, additiona_args: dict|None = None) -> bool:
     profile_name = profile_path.split("/")[-1]
     
     if "x86" in profile_name and ("x64" not in profile_name and "x86_64" not in profile_name):
@@ -36,6 +36,8 @@ class BuilderCmakeCommon(BuilderCommon):
     command += f" -DBUILD_TOOL_TYPE_NAME={profile_name}"
     command += f" -DCMAKE_TOOLCHAIN_FILE={cmake_toolchain_file_path}"
     command += f" -DCMAKE_PROJECT_INCLUDE={self.root_path}/injection_common.cmake"
+    if "gcc" in profile_name:
+      command += " -DCMAKE_C_COMPILER=C:\\msys64\\mingw64\\bin\\gcc.exe -DCMAKE_CXX_COMPILER=C:\\msys64\\mingw64\\bin\\g++.exe"
     command += f" 1>{self.build_logs_folder}/cmake/{profile_name}.log 2>&1"
    
     return self._run_cmd(command, profile_name, "cmake load")
@@ -46,7 +48,7 @@ class BuilderCmakeCommon(BuilderCommon):
     current_cmake_directory = os.path.join(self.cmake_build_folder, profile_name)
     command = f"cmake --build {current_cmake_directory}"
     command += f" --config {self.__get_configuration_type(profile_name)}"
-    command += f" --parallel 24"
+    command += " --parallel 24"
     command += f" 1>{self.build_logs_folder}/build/{profile_name}.log 2>&1"
     
     return self._run_cmd(command, profile_name, "cmake build")
@@ -62,7 +64,7 @@ class BuilderCmakeCommon(BuilderCommon):
   
   def __find_conan_toolchain(self, path):
     name = "conan_toolchain.cmake"
-    for root, dirs, files in os.walk(path):
+    for root, _, files in os.walk(path):
         if name in files:
             return os.path.join(root, name)
     return None

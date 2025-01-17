@@ -14,17 +14,22 @@ class BuilderConanWindows(BuilderConanCommon):
     self.generate_folders(profiles)
     self._do_for_all(self._install_profile, profiles, {}, "Conan install")
     
-    if use_all_profiles:
+    if not use_all_profiles:
       return
-
-    for profile_target_path in self.profiles_windows_cross:
+    
+    def install_cross_profile(self, profile_target_path: str):
       profile_target_name: str = profile_target_path.split("/")[-1]
-      self._install_cross_profile(profile_target_name.replace("lin", "win"), profile_target_path)
-
-  def _install_cross_profile(self, profile_host_name, profile_target_path):
+      self.__install_cross_profile(profile_target_name.replace("lin", "win"), profile_target_path) 
+      
+    self._do_for_all(self.__install_cross_profile, self.profiles_windows_cross, {}, "Conan install crossprofile")
+    
+  def __install_cross_profile(self, profile_target_path: str, additiona_args: dict|None = None):
+    profile_target_name: str = profile_target_path.split("/")[-1]
+    profile_host_name = profile_target_name.replace("lin", "win")
+    
     for profile_host_path in self.profiles_windows:
       if profile_host_path.endswith(profile_host_name):
-        self._install_cross_profile(profile_host_path, profile_target_path, "Conan install crossprofile")
+        self._install_cross_profile(profile_host_path, profile_target_path, additiona_args)
         return True
 
     return False

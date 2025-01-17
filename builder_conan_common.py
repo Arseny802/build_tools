@@ -11,7 +11,7 @@ class BuilderConanCommon(BuilderCommon):
   def __init__(self, project_root_path: str):
     super().__init__(project_root_path)
   
-  def _install_profile(self, profile_path: str, additiona_args: dict = None) -> bool:
+  def _install_profile(self, profile_path: str, additiona_args: dict|None = None) -> bool:
     profile_name = profile_path.split("/")[-1]
     
     if additiona_args is not None and self._TARGET_PROFILE_PATH_KEY in additiona_args.keys():
@@ -27,7 +27,7 @@ class BuilderConanCommon(BuilderCommon):
    
     return self._run_cmd(command, profile_name, "conan install")
   
-  def _install_cross_profile(self, profile_current_path: str, profile_target_path: str, additiona_args: dict = None) -> bool:
+  def _install_cross_profile(self, profile_current_path: str, profile_target_path: str, additiona_args: dict|None = None) -> bool:
     profile_current_name = profile_current_path.split("/")[-1]
     profile_target_name = profile_target_path.split("/")[-1]
     
