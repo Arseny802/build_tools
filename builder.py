@@ -13,9 +13,15 @@ else:
     raise Exception("Unsupported OS")
 
 class Builder:
+    __root_project_file = "conanfile.txt"
+    
     def __init__(self, project_root_path: str):
-        self.builder_conan = BuilderConan(project_root_path)
-        self.builder_cmake = BuilderCmake(project_root_path)
+        project_path = self.__scan_root_path(project_root_path)
+        if project_path != project_root_path:
+            print("WARN: Changed project root path to '{}'.".format(project_path))
+            
+        self.builder_conan = BuilderConan(project_path)
+        self.builder_cmake = BuilderCmake(project_path)
             
     def run(self, args: argparse.Namespace):
         use_all_profiles = args.all
@@ -39,6 +45,24 @@ class Builder:
         
     def run_install(self, use_all_profiles: bool = True):
         self.builder_cmake.install(use_all_profiles)
+        
+    def __scan_root_path(self, old_root_path: str) -> str:
+        last_root    = old_root_path
+        current_root = old_root_path
+        while current_root:
+            pruned = False
+            for root, dirs, files in os.walk(current_root):
+                if not pruned:
+                   try:
+                      del dirs[dirs.index(os.path.basename(last_root))]
+                      pruned = True
+                   except ValueError:
+                      pass
+                if self.__root_project_file in files:
+                   return root
+            last_root    = current_root
+            current_root = os.path.dirname(last_root)
+        return old_root_path
     
 
 class Runner:

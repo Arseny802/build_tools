@@ -2,41 +2,44 @@ import os
 import time
 
 class BuilderCommon:
+  
+  _script_dir_path = os.path.dirname(os.path.realpath(__file__))
+  
   profiles_windows: list[str] = [
-    "conan_profiles/windows/win_gcc_x64_deb",
-    "conan_profiles/windows/win_gcc_x64_rel",
-    "conan_profiles/windows/win_gcc_x86_deb",
-    "conan_profiles/windows/win_gcc_x86_rel",
+    _script_dir_path + "/conan_profiles/windows/win_gcc_x64_deb",
+    _script_dir_path + "/conan_profiles/windows/win_gcc_x64_rel",
+    _script_dir_path + "/conan_profiles/windows/win_gcc_x86_deb",
+    _script_dir_path + "/conan_profiles/windows/win_gcc_x86_rel",
 
-    "conan_profiles/windows/win_msvc_x64_deb_st",
-    "conan_profiles/windows/win_msvc_x64_rel_st",
-    "conan_profiles/windows/win_msvc_x64_deb_dyn",
-    "conan_profiles/windows/win_msvc_x64_rel_dyn",
-    "conan_profiles/windows/win_msvc_x86_deb_st",
-    "conan_profiles/windows/win_msvc_x86_rel_st",
-    "conan_profiles/windows/win_msvc_x86_deb_dyn",
-    "conan_profiles/windows/win_msvc_x86_rel_dyn",
+    _script_dir_path + "/conan_profiles/windows/win_msvc_x64_deb_st",
+    _script_dir_path + "/conan_profiles/windows/win_msvc_x64_rel_st",
+    _script_dir_path + "/conan_profiles/windows/win_msvc_x64_deb_dyn",
+    _script_dir_path + "/conan_profiles/windows/win_msvc_x64_rel_dyn",
+    _script_dir_path + "/conan_profiles/windows/win_msvc_x86_deb_st",
+    _script_dir_path + "/conan_profiles/windows/win_msvc_x86_rel_st",
+    _script_dir_path + "/conan_profiles/windows/win_msvc_x86_deb_dyn",
+    _script_dir_path + "/conan_profiles/windows/win_msvc_x86_rel_dyn",
   ]
   profiles_windows_cross: list[str] = [
     # TODO: Crossbuild linux profiles are missing
-    "conan_profiles/windows/lin_gcc_x64_deb",
-    "conan_profiles/windows/lin_gcc_x64_rel",
-    "conan_profiles/windows/lin_gcc_x86_deb",
-    "conan_profiles/windows/lin_gcc_x86_rel",
+    _script_dir_path + "/conan_profiles/windows/lin_gcc_x64_deb",
+    _script_dir_path + "/conan_profiles/windows/lin_gcc_x64_rel",
+    _script_dir_path + "/conan_profiles/windows/lin_gcc_x86_deb",
+    _script_dir_path + "/conan_profiles/windows/lin_gcc_x86_rel",
   ]
   profiles_windows_all: list[str] = profiles_windows + profiles_windows_cross
   profiles_windows_default: list[str] = [profiles_windows[0]]
   
   profiles_linux: list[str] = [
-    "conan_profiles/linux/lin_gcc_x64_deb",
-    "conan_profiles/linux/lin_gcc_x64_rel",
-    "conan_profiles/linux/lin_gcc_x86_deb",
-    "conan_profiles/linux/lin_gcc_x86_rel",
+    _script_dir_path + "/conan_profiles/linux/lin_gcc_x64_deb",
+    _script_dir_path + "/conan_profiles/linux/lin_gcc_x64_rel",
+    _script_dir_path + "/conan_profiles/linux/lin_gcc_x86_deb",
+    _script_dir_path + "/conan_profiles/linux/lin_gcc_x86_rel",
   ]
   profiles_linux_cross: list[str] = [
     # TODO: Crossbuild windows profiles are missing
-    # "conan_profiles/linux/win_gcc_x64_deb",
-    # "conan_profiles/linux/win_gcc_x64_rel",
+    # _script_dir_path + "/conan_profiles/linux/win_gcc_x64_deb",
+    # _script_dir_path + "/conan_profiles/linux/win_gcc_x64_rel",
   ]
   profiles_linux_all = profiles_linux + profiles_linux_cross
   profiles_linux_default = [profiles_linux[0]]
