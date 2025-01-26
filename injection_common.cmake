@@ -50,6 +50,11 @@ endif (CMAKE_COMPILER_IS_GNUCXX)
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   message(STATUS "Build type is debug - setting compile arg \"-D _DEBUG\".")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D _DEBUG")
+  execute_process(
+    COMMAND ${CMAKE_COMMAND} -E create_symlink
+            ${PROJECT_SOURCE_DIR}/_build/${BUILD_TOOL_TYPE_NAME}/compile_commands.json
+            ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
+  )
 elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
   message(STATUS "Build type is relese - setting compile arg \"-D _RELEASE\".")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D _RELEASE")
