@@ -49,14 +49,15 @@ endif (CMAKE_COMPILER_IS_GNUCXX)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   message(STATUS "Build type is debug - setting compile arg \"-D _DEBUG\".")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D _DEBUG")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
 elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
   message(STATUS "Build type is relese - setting compile arg \"-D _RELEASE\".")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D _RELEASE")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DRELEASE")
 endif()
 
 set(BUILD_SHARED_LIBS OFF)
 enable_testing()
 
 include(InstallRequiredSystemLibraries)
+message(STATUS "-- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
 
