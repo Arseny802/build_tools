@@ -50,19 +50,20 @@ endif (CMAKE_COMPILER_IS_GNUCXX)
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   message(STATUS "Build type is debug - setting compile arg \"-D _DEBUG\".")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
-  execute_process(
-    COMMAND ${CMAKE_COMMAND} -E create_symlink
-            ${PROJECT_SOURCE_DIR}/_build/${BUILD_TOOL_TYPE_NAME}/compile_commands.json
-            ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
-  )
+  if (CMAKE_COMPILER_IS_GNUCXX)
+    execute_process(
+      COMMAND ${CMAKE_COMMAND} -E create_symlink
+              ${PROJECT_SOURCE_DIR}/_build/${BUILD_TOOL_TYPE_NAME}/compile_commands.json
+              ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
+    )
+  endif (CMAKE_COMPILER_IS_GNUCXX)
 elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
   message(STATUS "Build type is relese - setting compile arg \"-D _RELEASE\".")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DRELEASE")
-endif()
+endif(Debug)
 
 set(BUILD_SHARED_LIBS OFF)
 enable_testing()
 
 include(InstallRequiredSystemLibraries)
 message(STATUS "-- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
-
