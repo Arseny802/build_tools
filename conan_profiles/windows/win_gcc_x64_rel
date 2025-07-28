@@ -13,6 +13,7 @@ compiler.exception=seh
 
 
 [conf]
+tools.cmake.cmaketoolchain:user_toolchain = ["/build_tools/injection_common.cmake"]
 tools.cmake.cmake_layout:build_folder_vars = ['settings.os', 'settings.arch', 'settings.compiler']
 tools.build:compiler_executables={'c': 'C:/msys64/mingw64/bin/gcc.exe', 'cpp': 'C:/msys64/mingw64/bin/g++.exe' }
 tools.microsoft.bash:path=C:/msys64/usr/bin/bash.exe
