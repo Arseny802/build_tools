@@ -1,19 +1,39 @@
 include_guard()
 set(VENDOR "Arseny802")
 
+option(ENABLE_TESTS_BUILD "Enable test target to build" ON)
+option(ENABLE_TESTS_RUN "Enable test target to run" ON)
+
 message(STATUS "-- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
 message(STATUS "BUILD_TOOL_TYPE_NAME: ${BUILD_TOOL_TYPE_NAME}")
-set(CMAKE_BINARY_DIR "${PROJECT_SOURCE_DIR}/_build/bin/${BUILD_TOOL_TYPE_NAME}")
-set(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}/_build/bin_install/${BUILD_TOOL_TYPE_NAME}")
 
-SET(BUILD_ARCHITECTURE "NOT_DEFINED")
+set(BUILD_ARCHITECTURE "NOT_DEFINED")
 if(${BUILD_TOOL_TYPE_NAME} MATCHES "^.*x86.*$")
   message(STATUS "Detected x86 architecture")
-  SET(BUILD_ARCHITECTURE "x86")
+  set(BUILD_ARCHITECTURE "x86")
 elseif(${BUILD_TOOL_TYPE_NAME} MATCHES "^.*x64.*$")
   message(STATUS "Detected x64 architecture")
-  SET(BUILD_ARCHITECTURE "x64")
+  set(BUILD_ARCHITECTURE "x64")
 endif()
+
+option(ENABLE_TESTS_BUILD "Enable test target to build" ON)
+option(ENABLE_TESTS_RUN "Enable test target to run" ON)
+
+set(CMAKE_BINARY_DIR "${PROJECT_SOURCE_DIR}/_build/bin/${BUILD_TOOL_TYPE_NAME}" CACHE PATH "Install prefix" FORCE)
+set(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}/_build/bin_install/${BUILD_TOOL_TYPE_NAME}" CACHE PATH "Install prefix" FORCE)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
+
+if (not ENABLE_TESTS_BUILD)
+  set(ENABLE_TESTS_RUN OFF)
+endif (not ENABLE_TESTS_BUILD)
 
 message("Generator: ${CMAKE_GENERATOR}")
 message("Build tool: ${CMAKE_BUILD_TOOL}")
@@ -21,19 +41,11 @@ message("Build type: ${CMAKE_BUILD_TYPE}")
 message("Build arch: ${BUILD_ARCHITECTURE}")
 message("Build directory: ${CMAKE_BINARY_DIR}")
 message("Linker falgs: ${CMAKE_LINKER_FLAGS}")
+message("Tests build: ${ENABLE_TESTS_BUILD}")
+message("Tests run: ${ENABLE_TESTS_RUN}")
 
-SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
-SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
-SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
-SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
-SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
-SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
-SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
-SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
-SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
-
-cmake_policy(SET CMP0048 NEW)  # manages VERSION variables
-cmake_policy(SET CMP0091 NEW)  # allows select the MSVC runtime library (MT, MD, etc)
+cmake_policy(set CMP0048 NEW)  # manages VERSION variables
+cmake_policy(set CMP0091 NEW)  # allows select the MSVC runtime library (MT, MD, etc)
 
 if (CMAKE_COMPILER_IS_GNUCXX)
   message(STATUS "GCC detected, adding compile flags")
@@ -63,7 +75,10 @@ elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
 endif("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
 
 set(BUILD_SHARED_LIBS OFF)
-enable_testing()
+
+if (ENABLE_TESTS_BUILD)
+  enable_testing()
+endif (ENABLE_TESTS_BUILD)
 
 include(InstallRequiredSystemLibraries)
 message(STATUS "-- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
