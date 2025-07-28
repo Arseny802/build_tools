@@ -1,9 +1,6 @@
 include_guard()
 set(VENDOR "Arseny802")
 
-option(ENABLE_TESTS_BUILD "Enable test target to build" ON)
-option(ENABLE_TESTS_RUN "Enable test target to run" ON)
-
 message(STATUS "-- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
 message(STATUS "BUILD_TOOL_TYPE_NAME: ${BUILD_TOOL_TYPE_NAME}")
 
@@ -31,9 +28,11 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR} CACHE PATH "Singl
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR} CACHE PATH "Single Directory for all")
 
-if (not ENABLE_TESTS_BUILD)
-  set(ENABLE_TESTS_RUN OFF)
-endif (not ENABLE_TESTS_BUILD)
+if (ENABLE_TESTS_BUILD)
+  enable_testing()
+else()
+  set(ENABLE_TESTS_RUN OFF CACHE BOOL "Enable test target to build")
+endif (ENABLE_TESTS_BUILD)
 
 message("Generator: ${CMAKE_GENERATOR}")
 message("Build tool: ${CMAKE_BUILD_TOOL}")
@@ -44,8 +43,8 @@ message("Linker falgs: ${CMAKE_LINKER_FLAGS}")
 message("Tests build: ${ENABLE_TESTS_BUILD}")
 message("Tests run: ${ENABLE_TESTS_RUN}")
 
-cmake_policy(set CMP0048 NEW)  # manages VERSION variables
-cmake_policy(set CMP0091 NEW)  # allows select the MSVC runtime library (MT, MD, etc)
+cmake_policy(SET CMP0048 NEW)  # manages VERSION variables
+cmake_policy(SET CMP0091 NEW)  # allows select the MSVC runtime library (MT, MD, etc)
 
 if (CMAKE_COMPILER_IS_GNUCXX)
   message(STATUS "GCC detected, adding compile flags")
