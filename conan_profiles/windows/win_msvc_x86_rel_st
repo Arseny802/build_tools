@@ -1,19 +1,16 @@
 [settings]
 os=Windows
-os.subsystem=msys2
 arch=x86
 build_type=Release
 compiler=msvc
 compiler.cstd=17
 compiler.cppstd=20
-compiler.version=193
+compiler.version=194
 compiler.runtime=static
 
 [conf]
 tools.cmake.cmaketoolchain:user_toolchain = ["/build_tools/injection_common.cmake"]
 tools.cmake.cmake_layout:build_folder_vars = ['settings.os', 'settings.arch', 'settings.compiler', 'settings.compiler.runtime', 'settings.build_type']
 tools.microsoft.msbuild:vs_version=17
-tools.microsoft.bash:path=C:/msys64/usr/bin/bash.exe
-tools.microsoft.bash:subsystem=msys2
 tools.env.virtualenv:powershell=False
 tools.build:jobs = 8
