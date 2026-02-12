@@ -5,15 +5,6 @@ if(NOT "${BUILD_TOOL_TYPE_NAME}" STREQUAL "")
 endif(NOT "${BUILD_TOOL_TYPE_NAME}" STREQUAL "") 
 message(STATUS "Build tool type name is not specified")
 
-string(FIND "${CMAKE_TOOLCHAIN_FILE}" "conan_toolchain.cmake" UsedConanToolchain REVERSE)
-if (UsedConanToolchain EQUAL -1)
-  message(STATUS "CMAKE_TOOLCHAIN_FILE: ${CMAKE_TOOLCHAIN_FILE}")
-  message(WARNING "No conan toolchain provided - injection aborted")
-  return()
-endif(UsedConanToolchain EQUAL -1) 
-
-message(STATUS "Conan toolchain is provided - creating build tool type name")
-
 if (NOT "${CMAKE_BINARY_DIR}" STREQUAL "")
   if (UNIX AND NOT APPLE)
       set(profiles
@@ -58,6 +49,15 @@ if (NOT "${CMAKE_BINARY_DIR}" STREQUAL "")
 else()
   message(WARNING "Binary directory is not provided")
 endif (NOT "${CMAKE_BINARY_DIR}" STREQUAL "")
+
+string(FIND "${CMAKE_TOOLCHAIN_FILE}" "conan_toolchain.cmake" UsedConanToolchain REVERSE)
+if (UsedConanToolchain EQUAL -1)
+  message(STATUS "CMAKE_TOOLCHAIN_FILE: ${CMAKE_TOOLCHAIN_FILE}")
+  message(WARNING "No conan toolchain provided - injection aborted")
+  return()
+endif(UsedConanToolchain EQUAL -1) 
+
+message(STATUS "Conan toolchain is provided - creating build tool type name")
 
 if(UNIX AND NOT APPLE)
   set(BUILD_TOOL_TYPE_NAME "lin")
