@@ -1,8 +1,9 @@
 include_guard()
-set(VENDOR "Arseny802")
+include("${CMAKE_CURRENT_LIST_DIR}/build_tool_type.cmake")
 
 message(STATUS "-- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
 message(STATUS "BUILD_TOOL_TYPE_NAME: ${BUILD_TOOL_TYPE_NAME}")
+set(VENDOR "Arseny802")
 
 set(BUILD_ARCHITECTURE "NOT_DEFINED")
 if(${BUILD_TOOL_TYPE_NAME} MATCHES "^.*x86.*$")
@@ -17,6 +18,7 @@ option(ENABLE_TESTS_BUILD "Enable test target to build" ON)
 option(ENABLE_TESTS_RUN "Enable test target to run" ON)
 
 if(BUILD_ARCHITECTURE STREQUAL "NOT_DEFINED")
+  message(STATUS "CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE}")
   message(STATUS "Unknown project type - Single Directory for all not set.")
   return()
 else()
