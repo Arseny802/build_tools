@@ -39,7 +39,7 @@ class BuilderCmakeWindows(BuilderCmakeCommon):
       self._do_for_all(self._install, self.profiles_windows_cross, {}, "Conan install crossprofile")
 
   def _load(self, profile_path: str, additional_args: dict|None = None) -> bool:
-    if "msvc" in profile_path:  # MSVC conflicts with msys
+    if "gcc" not in profile_path:  # MSVC conflicts with msys
       path_before = self._remove_msys2()
       result = super()._load(profile_path, additional_args)
       os.environ["PATH"] = path_before
@@ -48,7 +48,7 @@ class BuilderCmakeWindows(BuilderCmakeCommon):
       return super()._load(profile_path, additional_args)
 
   def _build(self, profile_path: str, additional_args: dict|None = None) -> bool:
-    if "msvc" in profile_path:  # MSVC conflicts with msys
+    if "gcc" not in profile_path:  # MSVC conflicts with msys
       path_before = self._remove_msys2()
       result = super()._build(profile_path, additional_args)
       os.environ["PATH"] = path_before

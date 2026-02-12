@@ -9,8 +9,6 @@ class BuilderCmakeCommon(BuilderCommon):
   _GENERATOR_KEY = "cmake_generator"
   _GENERATOR_KEY_GCC = "cmake_generator_for_gcc"
   _GENERATOR_KEY_MSVC = "cmake_generator_for_msvc"
-  
-  _EXPORT_COMPILE_COMMANDS = 1
 
   def __init__(self, project_root_path: str):
     super().__init__(project_root_path)
@@ -44,7 +42,6 @@ class BuilderCmakeCommon(BuilderCommon):
     command += f" -DBUILD_TOOL_TYPE_NAME={profile_name}"
     command += f" -DCMAKE_TOOLCHAIN_FILE={cmake_toolchain_file_path}"
     command += f" -DCMAKE_PROJECT_INCLUDE={self.root_path}/injection_common.cmake"
-    command += f" -DCMAKE_EXPORT_COMPILE_COMMANDS={self._EXPORT_COMPILE_COMMANDS}"
     command += f" 1>{self.build_logs_folder}/cmake/{profile_name}.log 2>&1"
    
     return self._run_cmd(command, profile_name, "cmake load")

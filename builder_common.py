@@ -11,6 +11,10 @@ class BuilderCommon:
     _script_dir_path + "/conan_profiles/windows/win_gcc_x86_deb",
     _script_dir_path + "/conan_profiles/windows/win_gcc_x86_rel",
 
+    # TODO: add support for clang. boost can't be build for now
+    # _script_dir_path + "/conan_profiles/windows/win_clang_x64_deb",
+    # _script_dir_path + "/conan_profiles/windows/win_clang_x64_rel",
+    
     _script_dir_path + "/conan_profiles/windows/win_msvc_x64_deb_st",
     _script_dir_path + "/conan_profiles/windows/win_msvc_x64_rel_st",
     _script_dir_path + "/conan_profiles/windows/win_msvc_x64_deb_dyn",

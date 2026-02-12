@@ -49,19 +49,28 @@ message("Tests build: ${ENABLE_TESTS_BUILD}")
 message("Tests run: ${ENABLE_TESTS_RUN}")
 
 cmake_policy(SET CMP0048 NEW)  # manages VERSION variables
-cmake_policy(SET CMP0091 NEW)  # allows select the MSVC runtime library (MT, MD, etc)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-if (CMAKE_COMPILER_IS_GNUCXX)
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   message(STATUS "GCC detected, adding compile flags")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -pipe -pedantic -Wall -Wextra -Wcast-align -Wcast-qual")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe -pedantic -Wall -Wextra -Wcast-align -Wcast-qual")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wchar-subscripts -Wformat-nonliteral -Wmissing-declarations")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wpointer-arith -Wredundant-decls -Wundef -Wwrite-strings")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-pragmas -pthread")
-elseif (MSVC) # building on visual c++
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang") # building with clang
+  message(STATUS "Clang detected, adding compile flags")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON")
+  #execute_process(
+  #  COMMAND ${CMAKE_COMMAND} -E create_symlink
+  #          ${PROJECT_SOURCE_DIR}/_build/${BUILD_TOOL_TYPE_NAME}/compile_commands.json
+  #          ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
+  #)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC") # building on visual c++
+  cmake_policy(SET CMP0091 NEW)  # allows select the MSVC runtime library (MT, MD, etc)
   add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
   add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
   add_definitions("/EHsc")
-endif (CMAKE_COMPILER_IS_GNUCXX)
+endif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   message(STATUS "Build type is debug - setting compile arg \"-D DEBUG\".")
@@ -73,7 +82,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
               ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
     )
   endif (CMAKE_COMPILER_IS_GNUCXX)
-elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Release" AND "${BUILD_ARCHITECTURE}" STREQUAL "x64")
   message(STATUS "Build type is relese - setting compile arg \"-D RELEASE\".")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DRELEASE")
 endif("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
