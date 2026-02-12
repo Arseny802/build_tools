@@ -11,6 +11,10 @@ class BuilderCommon:
     _script_dir_path + "/conan_profiles/windows/win_gcc_x86_deb",
     _script_dir_path + "/conan_profiles/windows/win_gcc_x86_rel",
 
+    # TODO: add support for clang. boost can't be build for now
+    # _script_dir_path + "/conan_profiles/windows/win_clang_x64_deb",
+    # _script_dir_path + "/conan_profiles/windows/win_clang_x64_rel",
+    
     _script_dir_path + "/conan_profiles/windows/win_msvc_x64_deb_st",
     _script_dir_path + "/conan_profiles/windows/win_msvc_x64_rel_st",
     _script_dir_path + "/conan_profiles/windows/win_msvc_x64_deb_dyn",
@@ -47,7 +51,7 @@ class BuilderCommon:
   _BUILD_CROSSCOMPILING = False
 
   def __init__(self, project_root_path: str):
-    self.root_path = os.path.dirname(os.path.realpath(__file__))
+    self.root_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
     self.project_root_path = project_root_path
     self.cmake_build_folder = f"{self.project_root_path}/_build"
     self.build_logs_folder = f"{self.cmake_build_folder}/_logs"
@@ -119,4 +123,14 @@ class BuilderCommon:
 
     print("OK. Elapsed %.3f sec" % (end - start))
     return True
-  
+ 
+  def _remove_msys2(self) -> str:
+    full_path = os.environ["PATH"]
+    full_path_before = full_path
+    pathes = full_path.split(";")
+    for path in pathes:
+      if "msys" not in path:
+        continue
+      full_path = full_path.replace(f"{path};", "")
+    os.environ["PATH"] = full_path
+    return full_path_before

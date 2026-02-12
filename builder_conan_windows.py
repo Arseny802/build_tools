@@ -29,7 +29,7 @@ class BuilderConanWindows(BuilderConanCommon):
     return full_path_before
 
   def _install_profile(self, profile_path: str, additiona_args: dict|None = None) -> bool:
-    if "msvc" in profile_path:  # MSVC conflicts with msys
+    if "gcc" not in profile_path:  # MSVC conflicts with msys
       path_before = self.__remove_msys2()
       result = super()._install_profile(profile_path, additiona_args)
       os.environ["PATH"] = path_before

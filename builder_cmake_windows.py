@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
 from builder_cmake_common import BuilderCmakeCommon
 
 class BuilderCmakeWindows(BuilderCmakeCommon):
@@ -36,3 +37,21 @@ class BuilderCmakeWindows(BuilderCmakeCommon):
     
     if use_all_profiles and self._BUILD_CROSSCOMPILING:
       self._do_for_all(self._install, self.profiles_windows_cross, {}, "Conan install crossprofile")
+
+  def _load(self, profile_path: str, additional_args: dict|None = None) -> bool:
+    if "gcc" not in profile_path:  # MSVC conflicts with msys
+      path_before = self._remove_msys2()
+      result = super()._load(profile_path, additional_args)
+      os.environ["PATH"] = path_before
+      return result
+    else:
+      return super()._load(profile_path, additional_args)
+
+  def _build(self, profile_path: str, additional_args: dict|None = None) -> bool:
+    if "gcc" not in profile_path:  # MSVC conflicts with msys
+      path_before = self._remove_msys2()
+      result = super()._build(profile_path, additional_args)
+      os.environ["PATH"] = path_before
+      return result
+    else:
+      return super()._build(profile_path, additional_args)

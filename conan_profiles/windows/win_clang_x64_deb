@@ -1,0 +1,24 @@
+[settings]
+os=Windows
+arch=x86_64
+build_type=Debug
+compiler=clang
+compiler.cstd=17
+compiler.cppstd=17
+compiler.version=21
+compiler.libcxx=libc++
+compiler.runtime=static
+compiler.runtime_type=Debug
+compiler.runtime_version=v144
+
+
+[conf]
+tools.cmake.cmaketoolchain:user_toolchain = ["/build_tools/injection_common.cmake"]
+tools.cmake.cmake_layout:build_folder_vars = ['settings.os', 'settings.arch', 'settings.compiler']
+tools.build:exelinkflags = ["-stdlib=libc++"]
+tools.env.virtualenv:powershell=False
+tools.build:jobs = 8
+
+[options]
+libxml2/2.12.7:ftp=False
+boost/*:debug_level=1
