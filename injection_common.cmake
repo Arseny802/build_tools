@@ -52,6 +52,7 @@ message("Tests run: ${ENABLE_TESTS_RUN}")
 
 cmake_policy(SET CMP0048 NEW)  # manages VERSION variables
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   message(STATUS "GCC detected, adding compile flags")
@@ -61,7 +62,6 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-pragmas -pthread")
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang") # building with clang
   message(STATUS "Clang detected, adding compile flags")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON")
   #execute_process(
   #  COMMAND ${CMAKE_COMMAND} -E create_symlink
   #          ${PROJECT_SOURCE_DIR}/_build/${BUILD_TOOL_TYPE_NAME}/compile_commands.json
